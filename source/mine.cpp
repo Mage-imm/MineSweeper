@@ -6,36 +6,44 @@
 
 int main()
 {
-    system("clear");
-    setGameMode();
-    getQuickClearSettings();
+    bool playAgain = true;
 
-    Field field;
-
-    while (true)
+    while (playAgain)
     {
         system("clear");
+        setGameMode();
+        getQuickClearSettings();
 
-        dispBanner();
-        field.drawField();
-        dispFlagCounter();
-        
-        if (gameState != RUNNING)
-            dispVictoryOrDefeat();
-        else
-            dispControls();
+        Field field;
 
-        writeBuf.disp();
-        writeBuf.clear();
+        while (true)
+        {
+            system("clear");
 
-        if (gameState == RUNNING)
-            field.getMove();
-        else
-            break;
+            dispBanner();
+            field.drawField();
+            dispFlagCounter();
+
+            if (gameState != RUNNING)
+                dispVictoryOrDefeat();
+            else
+                dispControls();
+
+            writeBuf.disp();
+            writeBuf.clear();
+
+            if (gameState == RUNNING)
+                field.getMove();
+            else
+                break;
+        }
+
+        std::cout << "\nPlay again? (y/n): ";
+        char choice;
+        std::cin >> choice;
+        playAgain = (choice == 'y' || choice == 'Y');
     }
 
-    std::cout << endl
-              << reset;
-
+    std::cout << std::endl << reset;
     return 0;
 }
